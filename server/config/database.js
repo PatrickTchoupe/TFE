@@ -1,3 +1,52 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
-module.exports = new Sequelize('mysql://ba7d32b31f0a37:67c03cda@eu-cdbr-west-03.cleardb.net/heroku_d30921469028fb0?reconnect=true');
+const env = require("./environment");
+
+let dbConnection = ''
+
+if (env.NODE_ENV === 'test') {
+    dbConnection = new Sequelize(
+        'test',
+        'mysql',
+        'mysql',
+        {
+            host: 'localhost',
+            dialect: 'mysql',
+            logging: false,
+            pool: {
+                max: 5,
+                min: 0,
+                acquire: 30000,
+                idle: 10000
+            }
+        }
+    )
+} else if (env.NODE_ENV === 'dev') {
+    dbConnection = new Sequelize(
+        env.MYSQL_DATABASE,
+        env.DB_USER,
+        env.MYSQL_ROOT_PASSWORD, {
+            host: env.MYSQL_HOST,
+            dialect: 'mysql',
+            logging: false,
+            pool: {
+                max: 5,
+                min: 0,
+                acquire: 30000,
+                idle: 10000
+            }
+        }
+    )
+} else if (env.NODE_ENV === 'production') {
+    dbConnection = new Sequelize(env.DATABASE_URL, {
+        ssl: true,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
+    })
+}
+
+module.exports = dbConnection;
