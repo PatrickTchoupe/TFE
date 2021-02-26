@@ -14,7 +14,9 @@ const Transactions = dbConnection.define('transactions', {
         type: Sequelize.DATE,
         allowNull: false
     }
-});
+}, {
+    freezeTableName: true
+  });
 
 
 

@@ -1,9 +1,10 @@
 const Sequelize = require("sequelize");
 const dbConnection = require("../config/database");
 
-const Chargement = dbConnection.define('chargement', {
-    idChargement: {
+const Chargement = dbConnection.define('chargements', {
+    idChargements: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
         isUUID: 4
@@ -13,6 +14,8 @@ const Chargement = dbConnection.define('chargement', {
         allowNull: false,
         defaultValue: new Date()
     }
-});
+}, {
+    freezeTableName: true
+  });
 
 module.exports = Chargement;

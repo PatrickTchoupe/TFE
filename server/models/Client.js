@@ -30,6 +30,8 @@ const Client = dbConnection.define('client', {
         allowNull: false,
         notEmpty: true
     }
-});
+}, {
+    freezeTableName: true
+  });
 
 module.exports = Client;
