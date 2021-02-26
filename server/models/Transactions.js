@@ -18,6 +18,4 @@ const Transactions = dbConnection.define('transactions', {
     freezeTableName: true
   });
 
-
-
 module.exports = Transactions;
