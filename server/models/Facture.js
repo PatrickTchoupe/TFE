@@ -1,26 +1,26 @@
 const Sequelize = require("sequelize");
 const dbConnection = require("../config/database");
+const Envoi = require("./Envoi");
 
-const Chargement = dbConnection.define('chargement', {
-    idChargements: {
+const Facture = dbConnection.define('facture', {
+    idFacture: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
         isUUID: 4
     },
-    dateDebut: {
-        type: Sequelize.DATE,
+    expedition: {
+        type: Sequelize.UUID,
         allowNull: false,
-        defaultValue: new Date()
+        references: { model: Envoi, key: 'idEnvoi' }
     },
-    dateFin: {
-        type: Sequelize.DATE,
+    prixHT: {
+        type: Sequelize.DECIMAL,
         allowNull: false,
-        defaultValue: new Date()
     }
 }, {
     freezeTableName: true
   });
 
-module.exports = Chargement;
+module.exports = Facture;

@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 const dbConnection = require("../config/database");
 const Adresse = require("./adresse");
 
-const Client = dbConnection.define('client', {
-    idClient: {
+const Destinataire = dbConnection.define('destinataire', {
+    idDestinataire: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
@@ -25,23 +25,12 @@ const Client = dbConnection.define('client', {
         allowNull: false,
         validate: {len: [2, 32]}
     },
-    email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-        isEmail: true
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        notEmpty: true
-    },
     contact: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
     }
 }, {
     freezeTableName: true
   });
 
-module.exports = Client;
+module.exports = Destinataire;

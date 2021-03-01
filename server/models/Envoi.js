@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const dbConnection = require("../config/database");
-const Client = require('./Client');
+const Colis = require("./Colis");
+const Ramassage = require("./Ramassage");
 
 const Envoi = dbConnection.define('envoi', {
     idEnvoi: {
@@ -10,33 +11,17 @@ const Envoi = dbConnection.define('envoi', {
         primaryKey: true,
         isUUID: 4
     },
-    idClient: {
+    colis:{
         type: Sequelize.UUID,
-        references: { model: Client, key: 'idClient' }
+        references: { model: Colis, key: 'idColis' }
     },
-    Descriptif: {
+   enlevement: {
+        type: Sequelize.UUID,
+        references: { model: Ramassage, key: 'idRamassage' }
+    },
+    statut: {
         type: Sequelize.STRING,
         allowNull: false,
-    },
-    Destination: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-        isEmail: true
-    },
-    Destinataire: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        notEmpty: true
-    },
-    etat: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        notEmpty: true
-    },
-    Remarque: {
-        type: Sequelize.STRING,
-        allowNull: true,
     }
 }, {
     freezeTableName: true

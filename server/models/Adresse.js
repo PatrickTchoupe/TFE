@@ -1,21 +1,24 @@
 const Sequelize = require("sequelize");
 const dbConnection = require("../config/database");
-const envoi = require("./Envoi");
 
-const Transactions = dbConnection.define('transactions', {
-    idTransactions: {
+const Adresse = dbConnection.define('adresse', {
+    idAdresse: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
         isUUID: 4
     },
-    prix: {
-        type: Sequelize.DATE,
+    rue: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    ville: {
+        type: Sequelize.STRING,
         allowNull: false
     }
 }, {
     freezeTableName: true
   });
 
-module.exports = Transactions;
+module.exports = Adresse;
